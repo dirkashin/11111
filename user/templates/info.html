@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ user.nickname }} 您好</h1><hr>
+
+<ul>
+    <li>昵称：{{ user.nickname }}</li>
+    <li>生日:{{ user.birthday }}</li>
+    <li><a href="/weibo/xianshi">进入微博显示</a></li>
+</ul>
+
+
+
+{% endblock %}

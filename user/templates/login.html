@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- 处理错误信息 -->
+{% if err %}
+<div class="alert alert-danger" role="alert">
+  <p class="mb-0">{{ err }}</p>
+</div>
+{% endif %}
+
+<form action="/user/login" method="POST">
+    昵称：<input type="text" name='nickname'><br>
+    密码：<input type="text" name='password'><br>
+    <input type="submit" value="登录">
+</form>
+
+{% endblock %}
