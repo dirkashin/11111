@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<form action="/weibo/xiugai" method="POST" class="xiugai">
+    <input type="hidden" name='id' value='{{ id }}'>
+    <input type="text" value="{{ cont }}" name='newcont' class="xiugai_cont"><br>
+    <input type="submit" value="修改">
+</form>
+
+{% endblock %}

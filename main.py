@@ -8,7 +8,8 @@ from flask_migrate import Migrate, MigrateCommand
 
 from libs.orm import db
 from user.views import user_bp
-
+from weibo.views import weibo_bp
+from hudong.views import hudong_bp
 
 # 初始化 app
 app = Flask(__name__)
@@ -28,10 +29,9 @@ manager.add_command('db', MigrateCommand)
 
 # 注册蓝图
 app.register_blueprint(user_bp)
+app.register_blueprint(weibo_bp)
+app.register_blueprint(hudong_bp)
 
-@app.route('/')
-def hello():
-    return 'hello'
 
 
 if __name__ == "__main__":

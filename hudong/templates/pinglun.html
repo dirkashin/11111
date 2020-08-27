@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+{% block zuo %}
+
+<ul class="xianshi_zuo">
+    <li>{{ nickname }},你好</li>
+    <li><a href="/weibo/zeng">发表微博</a></li>
+    <li><a href="/weibo/gai">修改微博</a></li>
+    <li><a href="/weibo/shan">删除微博</a></li>
+    <li><a href="/user/logout">退出登录</a></li>
+</ul>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <form action="/hudong/pinglun" method="POST">
+        <input type="hidden" name="eid" value="{{ eid }}">
+        <input type="text" name="pl">
+        <input type="submit" value="发布评论">
+    </form>
+
+
+{% endblock %}

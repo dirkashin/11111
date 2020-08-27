@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+{% for i in l %}
+
+    {{ i.cont }} <a href="/weibo/shan?id={{ i.id }}">删除</a>
+
+{% endfor %}
+
+{% endblock %}

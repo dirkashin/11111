@@ -26,6 +26,10 @@ user_bp = Blueprint(
     template_folder='./templates'
 )
 
+@user_bp.route('/')
+def home():
+    return render_template('home.html')
+
 # 注册 register
 @user_bp.route('/register',methods=('POST','GET'))
 def register():
@@ -42,7 +46,7 @@ def register():
             # 保存到数据库
             db.session.add(user)
             db.session.commit()
-            return redirect('/user/login')
+            return redirect('/user/')
         except IntegrityError:
             db.session.rollback()
             return render_template('register.html', err='您的昵称已被占用')
@@ -74,10 +78,14 @@ def login():
             return render_template('login.html', err='密码错误')
     else:
         return render_template('login.html')
+
 # 退出 logout
 @user_bp.route('/logout')
 def logout():
-    pass
+     session.clear()
+     return redirect('/user/')
+
+
 # info
 @user_bp.route('/info')
 def info():

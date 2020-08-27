@@ -17,7 +17,7 @@
         }
         .weibo{
             width:1300px;
-            height:800px;
+            height:2000px;
             background:slategray;
             margin:0 auto;
         }
@@ -27,18 +27,119 @@
         .zuo{
             width:300px;
             height:800px;
-            background:blue;
+            background:pink;
         }
         .zhong{
             width:1000px;
             height:800px;
         }
+        .home{
+            padding:100px 0 0 100px;
+        }
+        .home .bt{
+            width:50px;
+            height:30px;
+            background:blue;
+            border:1px solid orange;
+            color:springgreen;
+            margin:10px 10px 10px 0;
+        }
+        .home_cont{
+            padding-top:200px;
+            text-align:center;
+        }
+        .home_cont h1{
+            margin-bottom:30px;
+        }
+        .xianshi{
+            width:920px;
+            margin:0 auto;
+            list-style:none;
+            padding:40px 40px 0;
+        }
+        .xianshi li{
+            margin-bottom:40px;
+            background:burlywood;
+        }
+        .xianshi h1{
+            font-size:40px;
+            height:40px;
+        }
+        .xianshi span{
+            height:10px;
+            font-size:10px;
+            color:royalblue;
+        }
+        .xianshi p{
+            font-size:22px;
+            margin-top:16px;
+        }
+        .xianshi_zuo{
+            padding-top:40px;
+            text-align:center
+        }
+        .xianshi_zuo li{
+            list-style:none;
+            margin-bottom:40px;
+            height:40px;
+        }
+        .xianshi_zuo li:first-child{
+            font-size:40px;
+            text-align:center;
+        }
+        .xianshi_zuo a{
+            font-size:30px;
+        }
+        .gai{
+            padding:40px 0 0 40px;
+            margin-bottom:40px;
+        }
+        .gai p{
+            font-size:28px;
+        }
+        .xiugai{
+            padding:60px 0 0 60px;
+        }
+        .xiugai_cont{
+            width:300px;
+            height:40px;
+        }
+        .ye{
+            margin:0 auto;
+            width:400px;
+        }
+        .ye li{
+            list-style: none;
+            float:left;
+            width:50px;
+            text-align:center;
+        }
+        .ye li a{
+            width:30px;
+            height:30px;
+            font-size:22px;
+            line-height:30px;
+            background:white;
+            color:black;
+        }
+        .ye li a:hover{
+            background:black;
+            color:white;
+        }
+        .pinglun{
+            font-size:16px;
+        }
     </style>
 </head>
 <body>
-    <nav></nav>
+    <nav>
+
+    </nav>
     <div class="weibo">
-        <div class="zuo float_left"></div>
+        <div class="zuo float_left">
+            {% block zuo %}
+            {% endblock %}
+        </div>
         <div class="zhong float_left">
             {% block content %}
             {% endblock %}

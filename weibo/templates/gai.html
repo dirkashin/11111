@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+{% for i in l %}
+    <div class="gai">
+        <p>{{ i.cont }}</p> 
+        <a href="/weibo/gai?id={{ i.id }}"> 修改</a>
+    </div>
+    
+
+{% endfor %}
+
+
+<ul class='ye'>
+    {% for pg in pages %}
+    {% if pg == page %}
+        <li><a>{{ pg }}</a></li>        
+    {% else %}
+        <li><a href="/weibo/xianshi?page={{ pg }}">{{ pg }}</a></li>
+    {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock %}

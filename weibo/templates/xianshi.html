@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+
+{% block zuo %}
+
+<ul class="xianshi_zuo">
+    <li>{{ nickname }},你好</li>
+    <li><a href="/weibo/zeng">发表微博</a></li>
+    <li><a href="/weibo/gai">修改微博</a></li>
+    <li><a href="/weibo/shan">删除微博</a></li>
+    <li><a href="/user/logout">退出登录</a></li>
+</ul>
+
+{% endblock %}
+
+
+{% block content %}
+
+<ul class="xianshi">
+    {% for i in l %}
+    <li >
+        <h1>{{ i.nickname }}:   
+            <a href="/hudong/pinglun?eid={{ i.id }}" class='pinglun'>评论</a>
+            <a href="">点赞</a>
+        
+        
+        </h1>
+        <span>{{ i.updated }}</span>
+        <p>{{ i.cont }}</p><hr>
+        {% for pl in h %}
+            {% if pl.eid == i.id %}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                {% if pl.hid == 0 %}
+                    <p>
+                        {{ pl.aname }} 评论: {{ pl.cont }} 
+                        {% if pl.aname != session['nickname'] %}
+                            <a href="/hudong/huifu?h_id={{ pl.id }}">回复</a>
+                        {% endif %}
+                    </p>
+                {% else %}
+                    <p>
+                        {{ pl.aname }} 回复 {{ pl.hname }}: {{ pl.cont }} 
+                        {% if pl.aname != session['nickname'] %}
+                            <a href="/hudong/huifu?h_id={{ pl.id }}">回复</a>
+                        {% endif %}
+                    </p>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </li>
+        
+    {% endfor %}
+</ul>
+
+<ul class='ye'>
+    {% for pg in pages %}
+    {% if pg == page %}
+        <li><a>{{ pg }}</a></li>        
+    {% else %}
+        <li><a href="/weibo/xianshi?page={{ pg }}">{{ pg }}</a></li>
+    {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock %}
