@@ -10,3 +10,10 @@ class Hudong(db.Model):
     cont = db.Column(db.Text)
     hid = db.Column(db.Integer)
     hname = db.Column(db.String(20))
+
+class Thumb(db.Model):
+    __tablename__ = 'thumb'
+
+    id = db.Column(db.Integer,primary_key=True)
+    uid = db.Column(db.Integer)
+    wid = db.Column(db.Integer)

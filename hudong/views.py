@@ -10,6 +10,10 @@ from flask import abort
 
 from libs.orm import db
 from hudong.models import Hudong
+from hudong.models import Thumb
+from weibo.models import Essay
+from user.models import User
+from user.models import Follow
 from libs.utils import make_password
 from libs.utils import check_password
 from libs.utils import save_avatar
@@ -67,3 +71,62 @@ def huifu():
         e = Hudong.query.filter_by(id=hid).one()
         nickname = session['nickname']
         return render_template('huifu.html',nickname=nickname,pl_name=e.aname,pl_cont=e.cont,e_id=e.eid,p_id=hid)
+
+@hudong_bp.route('/dianzan')
+def dianzan():
+    wid = request.args.get('wid')
+    uid = session['uid']
+
+    try:
+        Thumb.query.filter_by(uid=uid).filter_by(wid=wid).one()
+        Thumb.query.filter_by(uid=uid).filter_by(wid=wid).delete()
+        db.session.commit()
+    except:
+        db.session.rollback()
+        thumb = Thumb(uid=uid,wid=wid)
+        db.session.add(thumb)
+        db.session.commit()
+
+    thumb_num = Thumb.query.filter_by(wid=wid).count()
+    Essay.query.filter_by(id=wid).update({'thumb_num':thumb_num})
+    db.session.commit()
+    return redirect('/weibo/xianshi')
+
+@hudong_bp.route('/check_user')
+def info():
+    nickname = session['nickname']
+    name = request.args.get('nickname')
+    user = User.query.filter_by(nickname=name).one()
+
+    uid = session['uid']
+
+    try:
+        Follow.query.filter_by(uid=uid).filter_by(fid=user.id).one()
+        g = '取消关注'
+    except:
+        g = '关注'
+
+    
+
+    return render_template('check_user.html',user=user,nickname=nickname,g=g)
+
+@hudong_bp.route('/guanzhu')
+def guanzhu():
+    fid = request.args.get('fid')
+    uid = session['uid']
+    
+    user = User.query.filter_by(id=fid).one()
+
+    try:
+        follow = Follow(uid=uid,fid=fid)
+        db.session.add(follow)
+        User.query.filter_by(id=fid).update({'fans_num':User.fans_num+1})
+        User.query.filter_by(id=uid).update({'follow_num':User.follow_num+1})
+        db.session.commit()
+    except:
+        db.session.rollback()
+        Follow.query.filter_by(uid=uid).filter_by(fid=fid).delete()
+        User.query.filter_by(id=fid).update({'fans_num':User.fans_num-1})
+        User.query.filter_by(id=uid).update({'follow_num':User.follow_num-1})
+        db.session.commit()
+    return redirect(f'/hudong/check_user?nickname={user.nickname}')

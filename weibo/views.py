@@ -11,6 +11,9 @@ from flask import abort
 from libs.orm import db
 from weibo.models import Essay
 from hudong.models import Hudong
+from hudong.models import Thumb
+from user.models import Follow
+from user.models import User
 from libs.utils import make_password
 from libs.utils import check_password
 from libs.utils import save_avatar
@@ -43,6 +46,8 @@ def show():
     l = Essay.query.order_by(Essay.updated.desc()).limit(per_page).offset(offset)
     
     h = Hudong.query.all()
+
+    z = Thumb.query.filter_by(uid=session['uid'])
     # 求最大页数
     max_page = ceil(Essay.query.count() / per_page)
 
@@ -55,8 +60,11 @@ def show():
         start, end = (page - 3), (page + 3)
     pages = range(start, end + 1)
 
-    
-    return render_template('xianshi.html',nickname=nickname,l=l,pages=pages,page=page,h=h)
+    dz_wid = []
+    for dz in z:
+        dz_wid.append(dz.wid)
+
+    return render_template('xianshi.html',nickname=nickname,l=l,pages=pages,page=page,h=h,z=dz_wid)
     # except:
     #     return render_template('xianshi.html',nickname=nickname)
         
@@ -119,3 +127,43 @@ def shan():
         l = Essay.query.filter_by(nickname=nickname).all()
         return render_template('shan.html',nickname=nickname,l=l)
 
+
+
+@weibo_bp.route('/guanzhu_xianshi')
+def guanzhu_xianshi():
+    nickname = session['nickname']
+
+    # 找出登录用户的关注
+    uid = session['uid']
+        # 找出关注的人的id
+    follow = Follow.query.filter_by(uid=uid).values('fid')    
+    l_list = [f for (f,) in follow]
+        # 对应出关注的人的名字
+    un = User.query.filter(User.id.in_(l_list)).values('nickname')
+    un_list = [n for (n,) in un]
+        # 根据名字，查出微博实例的basequery类数据
+    l = Essay.query.filter(Essay.nickname.in_(un_list))
+    
+    h = Hudong.query.all()
+
+    z = Thumb.query.filter_by(uid=uid)
+    
+    dz_wid = []
+    for dz in z:
+        dz_wid.append(dz.wid)
+
+    return render_template('guanzhu_xianshi.html',nickname=nickname,l=l,h=h,z=dz_wid)
+    
+@weibo_bp.route('/fans_list')
+def fans_list():
+    nickname = session['nickname']
+
+    # 找出登录用户的粉丝
+    uid = session['uid']
+        # 找出粉丝的id
+    fans = Follow.query.filter_by(fid=uid).values('uid')    
+    fans_id_list = [f for (f,) in fans]
+        # 对应出fans实例
+    fans = User.query.filter(User.id.in_(fans_id_list))
+
+    return render_template('fans_list.html',nickname=nickname,l=fans)

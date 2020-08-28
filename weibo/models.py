@@ -10,3 +10,5 @@ class Essay(db.Model):
     cont = db.Column(db.Text)
     created = db.Column(db.DateTime,nullable=False)
     updated = db.Column(db.DateTime,nullable=False)
+
+    thumb_num = db.Column(db.Integer,nullable=False,default=0)

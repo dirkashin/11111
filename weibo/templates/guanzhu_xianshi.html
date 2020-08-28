@@ -24,18 +24,12 @@
             <a href="/hudong/pinglun?eid={{ i.id }}" class='pinglun'>评论</a>
             
             {% if i.id in z%}
-                <a href="/hudong/dianzan?wid={{ i.id }}" class="pinglun tmz_button" style="float:right">取消点赞</a>
+                <a href="/hudong/dianzan?wid={{ i.id }}" class="pinglun">取消点赞</a>
             {% else %}
-                <a href="/hudong/dianzan?wid={{ i.id }}" class="pinglun tmz_button" style="float:right">点赞</a>  
+                <a href="/hudong/dianzan?wid={{ i.id }}" class="pinglun">点赞</a>  
             {% endif %}
             
            <span class="pinglun">点赞数量：{{ i.thumb_num }}</span>
-            
-                
-            
-
-
-            
         
         </h1>
         <span>{{ i.updated }}</span>
@@ -65,14 +59,6 @@
     {% endfor %}
 </ul>
 
-<ul class='ye'>
-    {% for pg in pages %}
-    {% if pg == page %}
-        <li><a>{{ pg }}</a></li>        
-    {% else %}
-        <li><a href="/weibo/xianshi?page={{ pg }}">{{ pg }}</a></li>
-    {% endif %}
-    {% endfor %}
-</ul>
+
 
 {% endblock %}

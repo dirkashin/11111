@@ -11,9 +11,27 @@
         }
         nav{
             margin:0 auto;
-            width:1300px;
+            width:1170px;
             height:100px;
             background:wheat;
+            padding-left:180px;
+        }
+        nav div{
+            width:300px;
+            height:80px;
+            font-size:30px;
+            line-height:80px;
+            float:left;
+            background:brown;
+            margin-right:50px;
+            text-align:center
+        }
+        nav div:hover{
+            background:olive;
+        }
+        nav div a{
+            color:white;
+            text-decoration:none;
         }
         .weibo{
             width:1300px;
@@ -63,7 +81,7 @@
         }
         .xianshi h1{
             font-size:40px;
-            height:40px;
+            height:50px;
         }
         .xianshi span{
             height:10px;
@@ -129,11 +147,42 @@
         .pinglun{
             font-size:16px;
         }
+        .pl{
+            padding-left:28px;
+            font-size:10px;
+        }
+        .xianshi li .wb_cont{
+            font-size:26px;
+        }
+        .user_info{
+            list-style:none;
+            padding-left:50px;
+        }
+        .tmz_button{
+            float:left;
+            display:block;
+            width:120px;
+            height:40px;
+            line-height:40px;
+            font-size:24px;
+            background:aqua;
+            color:black;
+            border:1px solid yellow;
+            border-radius:20px;
+            box-shadow:10px 10px 4px violet;
+            text-align:center;
+            margin:0 20px;
+        }
+        .tmz_button:hover{
+            background:coral;
+        }
     </style>
 </head>
 <body>
     <nav>
-
+        <div><a href="/weibo/xianshi">首页</a></div>
+        <div><a href="/weibo/guanzhu_xianshi">我的关注</a></div>
+        <div><a href="/weibo/fans_list">粉丝列表</a></div>
     </nav>
     <div class="weibo">
         <div class="zuo float_left">

@@ -3,11 +3,13 @@
 {% block content %}
 <h1>{{ user.nickname }} 您好</h1><hr>
 
-<ul>
+<ul class="user_info">
     <li>昵称：{{ user.nickname }}</li>
     <li>生日:{{ user.birthday }}</li>
-    <li><a href="/weibo/xianshi">进入微博显示</a></li>
-    <li><a href="/user/logout">退出登录</a></li>
+    <li>关注数：{{ user.follow_num }}</li>
+    <li>粉丝数：{{ user.fans_num }}</li>
+    <li><a href="/weibo/xianshi" class="tmz_button">进入微博显示</a></li>
+    <li><a href="/user/logout" class="tmz_button">退出登录</a></li>
 </ul>
 
 
